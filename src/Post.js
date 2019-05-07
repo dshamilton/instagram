@@ -1,4 +1,5 @@
 import React from "react";
+import { createFragmentContainer, graphql } from 'react-relay'
 
 class Post extends React.Component {
     render() {
@@ -14,7 +15,7 @@ class Post extends React.Component {
                 />
                 <div className='pt3'>
                     {this.props.post.description}&nbsp;
-          <span className='red f6 pointer dim' onClick={this._handleDelete}>Delete</span>
+                    <span className='red f6 pointer dim' onClick={this._handleDelete}>Delete</span>
                 </div>
             </div>
         )
@@ -22,4 +23,13 @@ class Post extends React.Component {
     _handleDelete = () => { };
 }
 
-export default Post;
+export default createFragmentContainer(
+    Post,
+    graphql`
+      fragment Post_post on Post {
+        id
+        description
+        imageUrl
+      }
+    `,
+  )
