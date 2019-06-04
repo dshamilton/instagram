@@ -12,29 +12,24 @@ const AppAllPostQuery = graphql`
   }
 `;
 
-function render() {
-  return (
-    <QueryRenderer
-      environment={environment}
-      query={AppAllPostQuery}
-      render={({error, props}) => {
-        if (error) {
-          return <div>{error.message}</div>
-        } else if (props) {
-          return <ListPage viewer={props.viewer} />
-        }
-        return <div>Loading</div>
-      }}
-    />
-  );
-}
-
 function App() {
   return (
     <div className="App">
-      <ListPage />
+
+      <QueryRenderer
+        environment={environment}
+        query={AppAllPostQuery}
+        render={({ error, props }) => {
+          if (error) {
+            return <div>{error.message}</div>
+          } else if (props) {
+            return <ListPage viewer={props.viewer} />
+          }
+          return <div>Loading</div>
+        }}
+      />
     </div>
-  ); 
+  );
 }
 
 export default App;
